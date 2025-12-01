@@ -63,7 +63,7 @@ func main() {
 				FROM achievement
 				WHERE name ILIKE '%' || $1 || '%'
 				ORDER BY name ASC
-				LIMIT 20
+				LIMIT 10
 			`, query)
 		} else {
 			// Use pg_trgm similarity search combined with pattern matching
@@ -72,7 +72,7 @@ func main() {
 				FROM achievement
 				WHERE similarity(name, $1) > 0.3 OR name ILIKE '%' || $1 || '%'
 				ORDER BY similarity_score DESC
-				LIMIT 20
+				LIMIT 10
 			`, query)
 		}
 
