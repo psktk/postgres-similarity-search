@@ -45,3 +45,8 @@ GET http://localhost:8080/achievements?query=lerner
 
 ### Search achievements by similarity - partial "learn"
 GET http://localhost:8080/achievements?query=learn
+
+###
+
+### Search achievements by similarity - single character "a"
+GET http://localhost:8080/achievements?query=a
