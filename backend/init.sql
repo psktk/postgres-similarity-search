@@ -1,7 +1,11 @@
+-- Enable pg_trgm extension for trigram similarity
+CREATE EXTENSION IF NOT EXISTS pg_trgm;
 CREATE TABLE IF NOT EXISTS achievement (
     id SERIAL PRIMARY KEY,
     name VARCHAR(255) NOT NULL
 );
+-- Create trigram index for similarity searches
+CREATE INDEX IF NOT EXISTS achievement_name_trgm_idx ON achievement USING GIN (name gin_trgm_ops);
 INSERT INTO achievement (name)
 VALUES ('First Steps'),
     ('Quick Learner'),
