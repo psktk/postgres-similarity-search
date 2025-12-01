@@ -16,7 +16,7 @@ type Achievement struct {
 	Similarity float64 `json:"similarity"`
 }
 
-func main() {
+func connectDB() *sql.DB {
 	// Database connection parameters
 	host := getEnv("DB_HOST", "localhost")
 	port := getEnv("DB_PORT", "15432")
@@ -33,15 +33,19 @@ func main() {
 	if err != nil {
 		log.Fatal("Error opening database:", err)
 	}
-	defer db.Close()
 
 	// Test the connection
-	err = db.Ping()
-	if err != nil {
+	if err := db.Ping(); err != nil {
 		log.Fatal("Error connecting to database:", err)
 	}
 
 	fmt.Println("Successfully connected to PostgreSQL database!")
+	return db
+}
+
+func main() {
+	db := connectDB()
+	defer db.Close()
 
 	// Setup Gin router
 	r := gin.Default()
@@ -107,9 +111,9 @@ func main() {
 	})
 
 	// Start server
-	port = getEnv("PORT", "8080")
-	log.Printf("Starting server on port %s", port)
-	if err := r.Run(":" + port); err != nil {
+	serverPort := getEnv("PORT", "8080")
+	log.Printf("Starting server on port %s", serverPort)
+	if err := r.Run(":" + serverPort); err != nil {
 		log.Fatal("Failed to start server:", err)
 	}
 }
