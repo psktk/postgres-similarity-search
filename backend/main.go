@@ -45,6 +45,52 @@ func main() {
 		c.String(200, "ok")
 	})
 
+	// Get achievements by similarity
+	r.GET("/achievements", func(c *gin.Context) {
+		query := c.Query("query")
+		if query == "" {
+			c.JSON(400, gin.H{"error": "query parameter is required"})
+			return
+		}
+
+		// Use pg_trgm similarity search with threshold
+		rows, err := db.Query(`
+			SELECT id, name, similarity(name, $1) as similarity_score
+			FROM achievement
+			WHERE similarity(name, $1) > 0.3
+			ORDER BY similarity_score DESC
+			LIMIT 20
+		`, query)
+		if err != nil {
+			c.JSON(500, gin.H{"error": err.Error()})
+			return
+		}
+		defer rows.Close()
+
+		type Achievement struct {
+			ID         int     `json:"id"`
+			Name       string  `json:"name"`
+			Similarity float64 `json:"similarity"`
+		}
+
+		var achievements []Achievement
+		for rows.Next() {
+			var a Achievement
+			if err := rows.Scan(&a.ID, &a.Name, &a.Similarity); err != nil {
+				c.JSON(500, gin.H{"error": err.Error()})
+				return
+			}
+			achievements = append(achievements, a)
+		}
+
+		if err := rows.Err(); err != nil {
+			c.JSON(500, gin.H{"error": err.Error()})
+			return
+		}
+
+		c.JSON(200, achievements)
+	})
+
 	// Start server
 	port = getEnv("PORT", "8080")
 	log.Printf("Starting server on port %s", port)
