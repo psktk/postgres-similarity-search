@@ -1,0 +1,47 @@
+### Search achievements by similarity - "learner"
+GET http://localhost:8080/achievements?query=learner
+
+###
+
+### Search achievements by similarity - "bug"
+GET http://localhost:8080/achievements?query=bug
+
+###
+
+### Search achievements by similarity - "code"
+GET http://localhost:8080/achievements?query=code
+
+###
+
+### Search achievements by similarity - "master"
+GET http://localhost:8080/achievements?query=master
+
+###
+
+### Search achievements by similarity - "team"
+GET http://localhost:8080/achievements?query=team
+
+###
+
+### Search achievements by similarity - "performance"
+GET http://localhost:8080/achievements?query=performance
+
+###
+
+### Search achievements by similarity - "security"
+GET http://localhost:8080/achievements?query=security
+
+###
+
+### Search achievements by similarity - "devops"
+GET http://localhost:8080/achievements?query=devops
+
+###
+
+### Search achievements by similarity - typo "lerner"
+GET http://localhost:8080/achievements?query=lerner
+
+###
+
+### Search achievements by similarity - partial "learn"
+GET http://localhost:8080/achievements?query=learn
