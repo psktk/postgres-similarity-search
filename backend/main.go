@@ -6,6 +6,7 @@ import (
 	"log"
 	"os"
 
+	"github.com/gin-gonic/gin"
 	_ "github.com/lib/pq"
 )
 
@@ -35,6 +36,21 @@ func main() {
 	}
 
 	fmt.Println("Successfully connected to PostgreSQL database!")
+
+	// Setup Gin router
+	r := gin.Default()
+
+	// Health check endpoint
+	r.GET("/health", func(c *gin.Context) {
+		c.String(200, "ok")
+	})
+
+	// Start server
+	port = getEnv("PORT", "8080")
+	log.Printf("Starting server on port %s", port)
+	if err := r.Run(":" + port); err != nil {
+		log.Fatal("Failed to start server:", err)
+	}
 }
 
 func getEnv(key, defaultValue string) string {
