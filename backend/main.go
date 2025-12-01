@@ -53,11 +53,11 @@ func main() {
 			return
 		}
 
-		// Use pg_trgm similarity search with threshold
+		// Use pg_trgm similarity search combined with pattern matching
 		rows, err := db.Query(`
 			SELECT id, name, similarity(name, $1) as similarity_score
 			FROM achievement
-			WHERE similarity(name, $1) > 0.3
+			WHERE similarity(name, $1) > 0.3 OR name ILIKE '%' || $1 || '%'
 			ORDER BY similarity_score DESC
 			LIMIT 20
 		`, query)
