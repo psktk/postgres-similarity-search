@@ -10,6 +10,12 @@ import (
 	_ "github.com/lib/pq"
 )
 
+type Achievement struct {
+	ID         int     `json:"id"`
+	Name       string  `json:"name"`
+	Similarity float64 `json:"similarity"`
+}
+
 func main() {
 	// Database connection parameters
 	host := getEnv("DB_HOST", "localhost")
@@ -81,12 +87,6 @@ func main() {
 			return
 		}
 		defer rows.Close()
-
-		type Achievement struct {
-			ID         int     `json:"id"`
-			Name       string  `json:"name"`
-			Similarity float64 `json:"similarity"`
-		}
 
 		var achievements []Achievement
 		for rows.Next() {
