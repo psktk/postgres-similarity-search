@@ -1,52 +1,97 @@
-### Search achievements by similarity - "learner"
-GET http://localhost:8080/achievements?query=learner
+### Test Case 1: Typo in "top seller" (as per requirement example)
+GET http://localhost:8080/achievements?query=top seler 2024
 
 ###
 
-### Search achievements by similarity - "bug"
-GET http://localhost:8080/achievements?query=bug
+### Test Case 2: Abbreviation (as per requirement example)
+GET http://localhost:8080/achievements?query=aws architect assoc
 
 ###
 
-### Search achievements by similarity - "code"
-GET http://localhost:8080/achievements?query=code
+### Test Case 3: Multiple typos and wrong spacing
+GET http://localhost:8080/achievements?query=awssolutionsarchitect
 
 ###
 
-### Search achievements by similarity - "master"
-GET http://localhost:8080/achievements?query=master
+### Test Case 4: Partial match with abbreviation
+GET http://localhost:8080/achievements?query=aws cert
 
 ###
 
-### Search achievements by similarity - "team"
-GET http://localhost:8080/achievements?query=team
+### Test Case 5: Common misspelling
+GET http://localhost:8080/achievements?query=kubernets admin
 
 ###
 
-### Search achievements by similarity - "performance"
-GET http://localhost:8080/achievements?query=performance
+### Test Case 6: Case variation
+GET http://localhost:8080/achievements?query=FULL STACK developer
 
 ###
 
-### Search achievements by similarity - "security"
-GET http://localhost:8080/achievements?query=security
+### Test Case 7: Extra spaces and symbols
+GET http://localhost:8080/achievements?query=react   ninja!!!
 
 ###
 
-### Search achievements by similarity - "devops"
-GET http://localhost:8080/achievements?query=devops
+### Test Case 8: Abbreviated search
+GET http://localhost:8080/achievements?query=db admin
 
 ###
 
-### Search achievements by similarity - typo "lerner"
-GET http://localhost:8080/achievements?query=lerner
+### Test Case 9: Partial word match
+GET http://localhost:8080/achievements?query=scrum mast
 
 ###
 
-### Search achievements by similarity - partial "learn"
-GET http://localhost:8080/achievements?query=learn
+### Test Case 10: Word order variation
+GET http://localhost:8080/achievements?query=architect aws solutions
 
 ###
 
-### Search achievements by similarity - single character "a"
-GET http://localhost:8080/achievements?query=a
+### Test Case 11: Missing vowels (common typing error)
+GET http://localhost:8080/achievements?query=tp sllr
+
+###
+
+### Test Case 12: Phonetic similarity
+GET http://localhost:8080/achievements?query=pythn develper
+
+###
+
+### Test Case 13: Mixed Thai-English (testing multilingual)
+GET http://localhost:8080/achievements?query=ผู้ขาย top
+
+###
+
+### Test Case 14: Common abbreviation
+GET http://localhost:8080/achievements?query=devops pro
+
+###
+
+### Test Case 15: Year variation
+GET http://localhost:8080/achievements?query=best sales 2024
+
+###
+
+### Test Case 16: Generic search term
+GET http://localhost:8080/achievements?query=cloud
+
+###
+
+### Test Case 17: Multiple word typos
+GET http://localhost:8080/achievements?query=continous lerning champion
+
+###
+
+### Test Case 18: Technical term abbreviation
+GET http://localhost:8080/achievements?query=k8s admin
+
+###
+
+### Test Case 19: Common spelling mistake
+GET http://localhost:8080/achievements?query=securty expert
+
+###
+
+### Test Case 20: Very short query
+GET http://localhost:8080/achievements?query=aws
